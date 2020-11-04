@@ -19,16 +19,19 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    binding.pry
     @prototype =Prototype.find(params[:id]) 
     @comment = Comment.new
     @comments = @prototype.comments.includes(:user)
   end
 
   def edit
-    if user_signed_in?
-      redirect_to action: :index
+    prototype = Prototype.find(params[:id])
+    if user_signed_in? && current_user.id == prototype.user_id
+      @prototype =Prototype.find(params[:id])
+    else
+      redirect_to root_path
     end
-    @prototype =Prototype.find(params[:id])
   end
 
   def update
