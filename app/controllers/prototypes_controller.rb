@@ -34,6 +34,7 @@ class PrototypesController < ApplicationController
   end
 
   def update
+    binding.pry
     prototype = Prototype.find(params[:id])
     if prototype.update(prototype_params)
       redirect_to prototype_path(params[:id])
